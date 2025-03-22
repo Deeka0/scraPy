@@ -6,6 +6,7 @@ from pathlib import Path
 from zipfile import ZipFile
 # from traceback import format_exc, print_exc
 from argparse import ArgumentParser
+from platform import processor
 from sys import exit, platform, version_info
 from subprocess import Popen, run, PIPE, DEVNULL
 
@@ -188,7 +189,7 @@ def fetch_chromedriver() -> bool | str:
     # For platform specific chromedriver download
     match platform:
         case "darwin":
-            selected_platform = "mac-x64" # "mac-arm64"
+            selected_platform = "mac-arm64" if processor() == "arm" else "mac-x64"
         case "linux" | "linux2":
             selected_platform = "linux64"
         case "win32":
